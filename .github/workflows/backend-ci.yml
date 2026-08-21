@@ -10,6 +10,10 @@ on:
   workflow_dispatch:
 
 jobs:
+
+  # -----------------------------
+  # LINT
+  # -----------------------------
   lint:
     runs-on: ubuntu-22.04
 
@@ -40,6 +44,10 @@ jobs:
       - name: Run lint
         run: pipenv run lint
 
+
+  # -----------------------------
+  # TEST
+  # -----------------------------
   test:
     runs-on: ubuntu-22.04
 
@@ -65,11 +73,15 @@ jobs:
         run: pip install pipenv
 
       - name: Install dependencies
-        run: pipenv install
+        run: pipenv install --dev
 
       - name: Run tests
         run: pipenv run test
 
+
+  # -----------------------------
+  # BUILD
+  # -----------------------------
   build:
     runs-on: ubuntu-22.04
 
@@ -77,13 +89,9 @@ jobs:
       - lint
       - test
 
-    defaults:
-      run:
-        working-directory: starter/backend
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: docker build --tag mp-backend:latest .
+      - name: Build backend Docker image
+        run: docker build -t mp-backend:latest ./starter/backend
