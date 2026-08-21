@@ -11,7 +11,7 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     defaults:
       run:
@@ -41,7 +41,7 @@ jobs:
         run: pipenv run lint
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     defaults:
       run:
@@ -71,7 +71,7 @@ jobs:
         run: pipenv run test
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     needs:
       - lint
@@ -82,9 +82,6 @@ jobs:
         working-directory: starter/backend
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Checkout code
         uses: actions/checkout@v4
 
